@@ -5,9 +5,12 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { DataSource } from 'typeorm';
 
 import { startDatabase } from './modules/database/db';
+import { runSeed } from './modules/database/run-seed';
 import { AppModule } from './modules/app/app.module';
+import { AppConfigService } from './config/config.service';
 
 async function bootstrap() {
   process.on('uncaughtException', (error) => {
@@ -16,11 +19,20 @@ async function bootstrap() {
   });
 
   await startDatabase();
+
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = 3000;
-  // const port = process.env.PORT || 3000;
+
+  // Run seed asynchronously (don't block app startup)
+  const dataSource = app.get(DataSource);
+  runSeed(dataSource).catch((error) => {
+    Logger.error('Failed to run seed:', error);
+    // Continue even if seed fails (might already be seeded)
+  });
+
+  const configService = app.get(AppConfigService);
+  const globalPrefix = configService.apiPrefix;
+  app.setGlobalPrefix(globalPrefix).enableCors();
+  const port = configService.port;
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`

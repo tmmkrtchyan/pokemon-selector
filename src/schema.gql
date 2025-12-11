@@ -1,0 +1,39 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Mutation {
+  addProfilePokemon(pokemonId: ID!, profileId: ID!): ProfileType!
+  createProfile(name: String!): ProfileType!
+  deleteProfilePokemon(pokemonId: ID!, profileId: ID!): ProfileType!
+}
+
+input PaginationInput {
+  limit: Int = 10
+  offset: Int = 0
+}
+
+type PokemonPaginationResponse {
+  data: [PokemonType!]!
+  limit: Int!
+  offset: Int!
+  total: Int!
+}
+
+type PokemonType {
+  id: ID!
+  name: String!
+}
+
+type ProfileType {
+  id: ID!
+  name: String!
+  pokemon: [PokemonType!]
+}
+
+type Query {
+  getPokemon(id: ID!): PokemonType!
+  getPokemons(pagination: PaginationInput): PokemonPaginationResponse!
+  getProfile(id: ID!): ProfileType!
+  getProfiles: [ProfileType!]!
+}

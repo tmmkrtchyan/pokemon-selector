@@ -1,0 +1,86 @@
+.selected-pokemons-container {
+  margin-bottom: var(--spacing-xl);
+  width: 100%;
+}
+
+.selected-pokemons-title {
+  margin: 0 0 var(--spacing-md) 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.selected-pokemons-empty {
+  padding: var(--spacing-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.selected-pokemons-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  align-items: flex-start;
+}
+
+.selected-pokemon-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-background);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+  min-width: 120px;
+}
+
+.selected-pokemon-card:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.selected-pokemon-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  flex: 1;
+}
+
+.selected-pokemons-remove-button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 2px solid var(--color-error-text);
+  border-radius: 50%;
+  color: var(--color-error-text);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.selected-pokemons-remove-button:hover {
+  background: var(--color-error-text);
+  color: var(--color-background);
+  transform: scale(1.1);
+}
+
+.selected-pokemons-remove-button:active {
+  transform: scale(0.95);
+}
+

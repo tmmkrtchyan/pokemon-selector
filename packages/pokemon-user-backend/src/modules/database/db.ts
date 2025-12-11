@@ -1,4 +1,4 @@
-import { PostgreSqlContainer } from '@testcontainers/postgresql';
+import { PostgreSqlContainer, StartedPostgreSqlContainer } from '@testcontainers/postgresql';
 
 export const postgresContainer = new PostgreSqlContainer()
   .withDatabase('pokemon')
@@ -10,10 +10,11 @@ export const postgresContainer = new PostgreSqlContainer()
   })
   .withReuse();
 
-export const startDatabase = async () => {
+export const startDatabase = async (): Promise<StartedPostgreSqlContainer> => {
   const theContainer = await postgresContainer.start();
   process.on('SIGINT', async function () {
     await theContainer.stop();
     process.exit();
   });
+  return theContainer;
 };
